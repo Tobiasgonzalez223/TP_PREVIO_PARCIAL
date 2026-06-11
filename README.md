@@ -25,6 +25,6 @@ Ver qué archivos cambiaste
 # Subir tu rama
   git push origin feature/nombre-de-lo-que-haces
 
-En GitHub
+# En GitHub
 Después del push, GitHub te va a mostrar un botón "Compare & pull request". 
 Lo abrís, escribís una descripción de lo que hiciste, y un compañero lo revisa y aprueba antes de fusionar a main.
