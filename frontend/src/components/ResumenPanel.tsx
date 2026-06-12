@@ -1,4 +1,5 @@
 import * as React from "react"
+import ErrorMessage from "./Error"
 
 type OrderStatusItem = {
     estado: string
@@ -19,6 +20,7 @@ interface ResumenPanelProps {
     urgentes: number
     sinTecnico: number
     activos: AssetFailureItem[]
+    backendError?: any
 
     backgroundColor: string
     cardBackgroundColor: string
@@ -76,6 +78,7 @@ export default function ResumenPanel(props: ResumenPanelProps) {
         titleFont,
         labelFont,
         numberFont,
+        backendError,
         radius,
         padding,
         gap,
@@ -240,6 +243,23 @@ export default function ResumenPanel(props: ResumenPanelProps) {
                 ...(isFixedWidth ? {} : { minWidth: 0 }),
             }}
         >
+            {backendError ? (
+                <div style={{ padding: 16 }}>
+                    <ErrorMessage
+                        error={backendError}
+                        showIcon={true}
+                        icon="⚠️"
+                        backgroundColor="#FEF2F2"
+                        borderColor="#FECACA"
+                        textColor="#991B1B"
+                        iconColor="#991B1B"
+                        borderRadius="10px"
+                        padding="12px"
+                        gap={10}
+                        font={{ fontSize: "14px", lineHeight: "1.4em" }}
+                    />
+                </div>
+            ) : null}
             {showTitle ? (
                 <header
                     style={{
