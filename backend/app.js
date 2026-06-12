@@ -1,18 +1,33 @@
-import express from "express"
-import cors from "cors"
-import authRoutes from "./routes/auth.js"
-import ordenesRoutes from "./routes/ordenes.js"
-import errorMiddleware from "./middlewares/errorMiddleware.js"
+const express = require('express');
+const cors = require('cors');
 
-const app = express()
-app.use(cors())
-app.use(express.json)
+// 1. Importamos las rutas
+const authRoutes = require('./routes/auth.js');
+const ordenesRoutes = require('./routes/ordenes.js');
+const activosRoutes = require('./routes/activos.js'); // Importación correcta
 
-//Rutas
-app.use("api/auth", authRoutes)
-app.use("/api/ordenes", ordenesRoutes)
+// 2. Inicializamos la app 
+const app = express();
 
-//Middleware de errores
-app.use(errorMiddleware)
+// 3. Middlewares globales
+app.use(cors());
+app.use(express.json());
 
-export default app
+// 4. Rutas
+app.use('/api/auth', authRoutes);
+app.use('/api/ordenes', ordenesRoutes);
+app.use('/api/activos', activosRoutes); // Uso correcto de app.use() DESPUÉS de declararla
+
+// 5. Middleware de errores y exportación
+app.use((req, res, next) => {
+  res.status(404).json({ error: 'Ruta no encontrada' });
+});
+
+app.use((err, req, res, next) => {
+  console.error('Error detectado:', err.message || err);
+  const status = err.status || 500;
+  const message = err.message || 'Error interno del servidor';
+  res.status(status).json({ error: message });
+});
+
+module.exports = app;

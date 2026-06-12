@@ -1,10 +1,6 @@
-import app from "./app.js"
-import { Sequelize } from "sequelize"
+const app = require('./app');
+const PORT = process.env.PORT || 3000;
 
-const PORT = 3000
-
-sequelize.sync({ force: false }).then(() => {
-    console.log("Base de datos sincronizada")
-    app.listen(PORT, () => console.log("Servidor corriendo en http://localhost:${PORT}"))
-})
-
+app.listen(PORT, () => {
+  console.log(`Servidor corriendo en el puerto ${PORT}`);
+});

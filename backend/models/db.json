@@ -1,0 +1,590 @@
+{
+  "usuarios": [
+    {
+      "id": "usr-admin",
+      "nombre": "Admin Sistema",
+      "email": "admin@dds.com",
+      "passwordHash": "$2b$10$pyht/UbwTsKqEhMD1jo9.ehfClZa6eiL21JXb.WdkREWvI/XEM8TO",
+      "rol": "admin",
+      "activo": true
+    },
+    {
+      "id": "usr-tec-1",
+      "nombre": "Técnico Uno",
+      "email": "tec1@dds.com",
+      "passwordHash": "$2b$10$pyht/UbwTsKqEhMD1jo9.ehfClZa6eiL21JXb.WdkREWvI/XEM8TO",
+      "rol": "tecnico",
+      "activo": true
+    },
+    {
+      "id": "usr-tec-2",
+      "nombre": "Técnico Dos",
+      "email": "tec2@dds.com",
+      "passwordHash": "$2b$10$pyht/UbwTsKqEhMD1jo9.ehfClZa6eiL21JXb.WdkREWvI/XEM8TO",
+      "rol": "tecnico",
+      "activo": true
+    },
+    {
+      "id": "usr-tec-3",
+      "nombre": "Técnico Tres",
+      "email": "tec3@dds.com",
+      "passwordHash": "$2b$10$pyht/UbwTsKqEhMD1jo9.ehfClZa6eiL21JXb.WdkREWvI/XEM8TO",
+      "rol": "tecnico",
+      "activo": true
+    },
+    {
+      "id": "usr-sol-1",
+      "nombre": "Pablo Solicitante",
+      "email": "pablo@dds.com",
+      "passwordHash": "$2b$10$pyht/UbwTsKqEhMD1jo9.ehfClZa6eiL21JXb.WdkREWvI/XEM8TO",
+      "rol": "solicitante",
+      "activo": true
+    },
+    {
+      "id": "usr-sol-2",
+      "nombre": "Laura Solicitante",
+      "email": "laura@dds.com",
+      "passwordHash": "$2b$10$pyht/UbwTsKqEhMD1jo9.ehfClZa6eiL21JXb.WdkREWvI/XEM8TO",
+      "rol": "solicitante",
+      "activo": true
+    }
+  ],
+  "activos": [
+    {
+      "id": "act-1",
+      "codigo": "AIRE-01",
+      "nombre": "Aire Acondicionado Aula 1",
+      "tipo": "equipo",
+      "ubicacion": "Aula 1",
+      "estado": "con_falla",
+      "criticidad": "media"
+    },
+    {
+      "id": "act-2",
+      "codigo": "AIRE-02",
+      "nombre": "Aire Acondicionado Aula 2",
+      "tipo": "equipo",
+      "ubicacion": "Aula 2",
+      "estado": "con_falla",
+      "criticidad": "alta"
+    },
+    {
+      "id": "act-3",
+      "codigo": "PROY-01",
+      "nombre": "Proyector Laboratorio",
+      "tipo": "equipo",
+      "ubicacion": "Lab Sistemas",
+      "estado": "en_mantenimiento",
+      "criticidad": "alta"
+    },
+    {
+      "id": "act-4",
+      "codigo": "PC-01",
+      "nombre": "PC Docente Aula 3",
+      "tipo": "equipo",
+      "ubicacion": "Aula 3",
+      "estado": "operativo",
+      "criticidad": "media"
+    },
+    {
+      "id": "act-5",
+      "codigo": "SRV-01",
+      "nombre": "Servidor Principal",
+      "tipo": "instalacion",
+      "ubicacion": "Data Center",
+      "estado": "operativo",
+      "criticidad": "alta"
+    },
+    {
+      "id": "act-6",
+      "codigo": "MESA-01",
+      "nombre": "Mesa de reuniones",
+      "tipo": "mobiliario",
+      "ubicacion": "Sala Profesores",
+      "estado": "con_falla",
+      "criticidad": "baja"
+    },
+    {
+      "id": "act-7",
+      "codigo": "SW-01",
+      "nombre": "Switch Red Piso 1",
+      "tipo": "instalacion",
+      "ubicacion": "Rack Piso 1",
+      "estado": "operativo",
+      "criticidad": "alta"
+    },
+    {
+      "id": "act-8",
+      "codigo": "LUM-01",
+      "nombre": "Iluminación Pasillo",
+      "tipo": "instalacion",
+      "ubicacion": "Pasillo Central",
+      "estado": "baja",
+      "criticidad": "baja"
+    }
+  ],
+  "ordenes": [
+    {
+      "id": "ord-1",
+      "activoId": "act-1",
+      "titulo": "Mantenimiento preventivo",
+      "descripcion": "Descripción generada para Mantenimiento preventivo",
+      "solicitanteId": "usr-sol-1",
+      "tecnicoId": null,
+      "prioridad": "media",
+      "estado": "abierta",
+      "fechaCreacion": "2026-04-03T11:39:56.493Z",
+      "fechaResolucion": null
+    },
+    {
+      "id": "ord-2",
+      "activoId": "act-2",
+      "titulo": "No enfría",
+      "descripcion": "Descripción generada para No enfría",
+      "solicitanteId": "usr-sol-2",
+      "tecnicoId": "usr-tec-1",
+      "prioridad": "alta",
+      "estado": "asignada",
+      "fechaCreacion": "2026-04-01T15:06:37.057Z",
+      "fechaResolucion": null
+    },
+    {
+      "id": "ord-3",
+      "activoId": "act-2",
+      "titulo": "Hace ruido raro",
+      "descripcion": "Descripción generada para Hace ruido raro",
+      "solicitanteId": "usr-sol-1",
+      "tecnicoId": "usr-tec-2",
+      "prioridad": "alta",
+      "estado": "en_proceso",
+      "fechaCreacion": "2026-03-24T14:08:12.410Z",
+      "fechaResolucion": null
+    },
+    {
+      "id": "ord-4",
+      "activoId": "act-3",
+      "titulo": "Lámpara quemada",
+      "descripcion": "Descripción generada para Lámpara quemada",
+      "solicitanteId": "usr-sol-1",
+      "tecnicoId": "usr-tec-3",
+      "prioridad": "alta",
+      "estado": "resuelta",
+      "fechaCreacion": "2026-05-29T12:55:00.370Z",
+      "fechaResolucion": "2026-06-12T16:32:26.835Z"
+    },
+    {
+      "id": "ord-5",
+      "activoId": "act-4",
+      "titulo": "Windows no arranca",
+      "descripcion": "Descripción generada para Windows no arranca",
+      "solicitanteId": "usr-sol-2",
+      "tecnicoId": "usr-tec-1",
+      "prioridad": "alta",
+      "estado": "resuelta",
+      "fechaCreacion": "2026-05-18T04:14:07.163Z",
+      "fechaResolucion": "2026-06-12T16:32:26.835Z"
+    },
+    {
+      "id": "ord-6",
+      "activoId": "act-5",
+      "titulo": "Revisión de logs",
+      "descripcion": "Descripción generada para Revisión de logs",
+      "solicitanteId": "usr-sol-1",
+      "tecnicoId": "usr-tec-2",
+      "prioridad": "urgente",
+      "estado": "en_proceso",
+      "fechaCreacion": "2026-05-11T01:29:24.908Z",
+      "fechaResolucion": null
+    },
+    {
+      "id": "ord-7",
+      "activoId": "act-6",
+      "titulo": "Pata rota",
+      "descripcion": "Descripción generada para Pata rota",
+      "solicitanteId": "usr-sol-2",
+      "tecnicoId": null,
+      "prioridad": "baja",
+      "estado": "abierta",
+      "fechaCreacion": "2026-02-20T17:32:45.622Z",
+      "fechaResolucion": null
+    },
+    {
+      "id": "ord-8",
+      "activoId": "act-7",
+      "titulo": "Luz roja parpadea",
+      "descripcion": "Descripción generada para Luz roja parpadea",
+      "solicitanteId": "usr-sol-1",
+      "tecnicoId": null,
+      "prioridad": "alta",
+      "estado": "abierta",
+      "fechaCreacion": "2026-05-01T23:30:41.798Z",
+      "fechaResolucion": null
+    },
+    {
+      "id": "ord-9",
+      "activoId": "act-1",
+      "titulo": "Limpieza de filtros",
+      "descripcion": "Descripción generada para Limpieza de filtros",
+      "solicitanteId": "usr-sol-2",
+      "tecnicoId": "usr-tec-3",
+      "prioridad": "media",
+      "estado": "resuelta",
+      "fechaCreacion": "2026-03-26T22:06:27.910Z",
+      "fechaResolucion": "2026-06-12T16:32:26.835Z"
+    },
+    {
+      "id": "ord-10",
+      "activoId": "act-2",
+      "titulo": "Pierde agua",
+      "descripcion": "Descripción generada para Pierde agua",
+      "solicitanteId": "usr-sol-1",
+      "tecnicoId": null,
+      "prioridad": "alta",
+      "estado": "cancelada",
+      "fechaCreacion": "2026-03-16T21:14:46.758Z",
+      "fechaResolucion": null
+    },
+    {
+      "id": "ord-11",
+      "activoId": "act-3",
+      "titulo": "No enciende",
+      "descripcion": "Descripción generada para No enciende",
+      "solicitanteId": "usr-sol-2",
+      "tecnicoId": "usr-tec-1",
+      "prioridad": "urgente",
+      "estado": "asignada",
+      "fechaCreacion": "2026-04-14T10:57:57.816Z",
+      "fechaResolucion": null
+    },
+    {
+      "id": "ord-12",
+      "activoId": "act-4",
+      "titulo": "Actualizar antivirus",
+      "descripcion": "Descripción generada para Actualizar antivirus",
+      "solicitanteId": "usr-sol-1",
+      "tecnicoId": "usr-tec-2",
+      "prioridad": "media",
+      "estado": "resuelta",
+      "fechaCreacion": "2026-04-09T12:43:54.046Z",
+      "fechaResolucion": "2026-06-12T16:32:26.835Z"
+    },
+    {
+      "id": "ord-13",
+      "activoId": "act-5",
+      "titulo": "Backup falló",
+      "descripcion": "Descripción generada para Backup falló",
+      "solicitanteId": "usr-sol-2",
+      "tecnicoId": "usr-tec-3",
+      "prioridad": "urgente",
+      "estado": "en_proceso",
+      "fechaCreacion": "2026-05-06T03:27:55.662Z",
+      "fechaResolucion": null
+    },
+    {
+      "id": "ord-14",
+      "activoId": "act-6",
+      "titulo": "Barnizar superficie",
+      "descripcion": "Descripción generada para Barnizar superficie",
+      "solicitanteId": "usr-sol-1",
+      "tecnicoId": null,
+      "prioridad": "baja",
+      "estado": "cancelada",
+      "fechaCreacion": "2026-06-10T20:36:58.269Z",
+      "fechaResolucion": null
+    },
+    {
+      "id": "ord-15",
+      "activoId": "act-7",
+      "titulo": "Pérdida de paquetes",
+      "descripcion": "Descripción generada para Pérdida de paquetes",
+      "solicitanteId": "usr-sol-2",
+      "tecnicoId": "usr-tec-1",
+      "prioridad": "alta",
+      "estado": "resuelta",
+      "fechaCreacion": "2026-05-06T20:44:54.974Z",
+      "fechaResolucion": "2026-06-12T16:32:26.835Z"
+    },
+    {
+      "id": "ord-1781288127514",
+      "activoId": "act-1",
+      "titulo": "Falla en test",
+      "descripcion": "Test automatizado",
+      "solicitanteId": "usr-sol-1",
+      "tecnicoId": null,
+      "prioridad": "media",
+      "estado": "abierta",
+      "fechaCreacion": "2026-06-12T18:15:27.514Z",
+      "fechaResolucion": null
+    },
+    {
+      "id": "ord-1781288153228",
+      "activoId": "act-1",
+      "titulo": "Falla en test",
+      "descripcion": "Test automatizado",
+      "solicitanteId": "usr-sol-1",
+      "tecnicoId": null,
+      "prioridad": "media",
+      "estado": "abierta",
+      "fechaCreacion": "2026-06-12T18:15:53.228Z",
+      "fechaResolucion": null
+    },
+    {
+      "id": "ord-1781289817307",
+      "activoId": "act-1",
+      "titulo": "Falla en test",
+      "descripcion": "Test automatizado",
+      "solicitanteId": "usr-sol-1",
+      "tecnicoId": null,
+      "prioridad": "media",
+      "estado": "abierta",
+      "fechaCreacion": "2026-06-12T18:43:37.307Z",
+      "fechaResolucion": null
+    },
+    {
+      "id": "ord-1781289965631",
+      "activoId": "act-1",
+      "titulo": "Falla en test",
+      "descripcion": "Test automatizado",
+      "solicitanteId": "usr-sol-1",
+      "tecnicoId": null,
+      "prioridad": "media",
+      "estado": "abierta",
+      "fechaCreacion": "2026-06-12T18:46:05.631Z",
+      "fechaResolucion": null
+    },
+    {
+      "id": "ord-1781290073951",
+      "activoId": "act-1",
+      "titulo": "Falla en test",
+      "descripcion": "Test automatizado",
+      "solicitanteId": "usr-sol-1",
+      "tecnicoId": null,
+      "prioridad": "media",
+      "estado": "abierta",
+      "fechaCreacion": "2026-06-12T18:47:53.951Z",
+      "fechaResolucion": null
+    }
+  ],
+  "historial_ordenes": [
+    {
+      "id": "hist-1",
+      "ordenId": "ord-1",
+      "usuarioId": "usr-sol-1",
+      "accion": "creacion",
+      "fechaHora": "2026-04-03T11:39:56.493Z",
+      "valorAnterior": null,
+      "valorNuevo": {
+        "estado": "abierta"
+      }
+    },
+    {
+      "id": "hist-2",
+      "ordenId": "ord-2",
+      "usuarioId": "usr-sol-2",
+      "accion": "creacion",
+      "fechaHora": "2026-04-01T15:06:37.057Z",
+      "valorAnterior": null,
+      "valorNuevo": {
+        "estado": "abierta"
+      }
+    },
+    {
+      "id": "hist-3",
+      "ordenId": "ord-3",
+      "usuarioId": "usr-sol-1",
+      "accion": "creacion",
+      "fechaHora": "2026-03-24T14:08:12.410Z",
+      "valorAnterior": null,
+      "valorNuevo": {
+        "estado": "abierta"
+      }
+    },
+    {
+      "id": "hist-4",
+      "ordenId": "ord-4",
+      "usuarioId": "usr-sol-1",
+      "accion": "creacion",
+      "fechaHora": "2026-05-29T12:55:00.370Z",
+      "valorAnterior": null,
+      "valorNuevo": {
+        "estado": "abierta"
+      }
+    },
+    {
+      "id": "hist-5",
+      "ordenId": "ord-5",
+      "usuarioId": "usr-sol-2",
+      "accion": "creacion",
+      "fechaHora": "2026-05-18T04:14:07.163Z",
+      "valorAnterior": null,
+      "valorNuevo": {
+        "estado": "abierta"
+      }
+    },
+    {
+      "id": "hist-6",
+      "ordenId": "ord-6",
+      "usuarioId": "usr-sol-1",
+      "accion": "creacion",
+      "fechaHora": "2026-05-11T01:29:24.908Z",
+      "valorAnterior": null,
+      "valorNuevo": {
+        "estado": "abierta"
+      }
+    },
+    {
+      "id": "hist-7",
+      "ordenId": "ord-7",
+      "usuarioId": "usr-sol-2",
+      "accion": "creacion",
+      "fechaHora": "2026-02-20T17:32:45.622Z",
+      "valorAnterior": null,
+      "valorNuevo": {
+        "estado": "abierta"
+      }
+    },
+    {
+      "id": "hist-8",
+      "ordenId": "ord-8",
+      "usuarioId": "usr-sol-1",
+      "accion": "creacion",
+      "fechaHora": "2026-05-01T23:30:41.798Z",
+      "valorAnterior": null,
+      "valorNuevo": {
+        "estado": "abierta"
+      }
+    },
+    {
+      "id": "hist-9",
+      "ordenId": "ord-9",
+      "usuarioId": "usr-sol-2",
+      "accion": "creacion",
+      "fechaHora": "2026-03-26T22:06:27.910Z",
+      "valorAnterior": null,
+      "valorNuevo": {
+        "estado": "abierta"
+      }
+    },
+    {
+      "id": "hist-10",
+      "ordenId": "ord-10",
+      "usuarioId": "usr-sol-1",
+      "accion": "creacion",
+      "fechaHora": "2026-03-16T21:14:46.758Z",
+      "valorAnterior": null,
+      "valorNuevo": {
+        "estado": "abierta"
+      }
+    },
+    {
+      "id": "hist-11",
+      "ordenId": "ord-11",
+      "usuarioId": "usr-sol-2",
+      "accion": "creacion",
+      "fechaHora": "2026-04-14T10:57:57.816Z",
+      "valorAnterior": null,
+      "valorNuevo": {
+        "estado": "abierta"
+      }
+    },
+    {
+      "id": "hist-12",
+      "ordenId": "ord-12",
+      "usuarioId": "usr-sol-1",
+      "accion": "creacion",
+      "fechaHora": "2026-04-09T12:43:54.046Z",
+      "valorAnterior": null,
+      "valorNuevo": {
+        "estado": "abierta"
+      }
+    },
+    {
+      "id": "hist-13",
+      "ordenId": "ord-13",
+      "usuarioId": "usr-sol-2",
+      "accion": "creacion",
+      "fechaHora": "2026-05-06T03:27:55.662Z",
+      "valorAnterior": null,
+      "valorNuevo": {
+        "estado": "abierta"
+      }
+    },
+    {
+      "id": "hist-14",
+      "ordenId": "ord-14",
+      "usuarioId": "usr-sol-1",
+      "accion": "creacion",
+      "fechaHora": "2026-06-10T20:36:58.269Z",
+      "valorAnterior": null,
+      "valorNuevo": {
+        "estado": "abierta"
+      }
+    },
+    {
+      "id": "hist-15",
+      "ordenId": "ord-15",
+      "usuarioId": "usr-sol-2",
+      "accion": "creacion",
+      "fechaHora": "2026-05-06T20:44:54.974Z",
+      "valorAnterior": null,
+      "valorNuevo": {
+        "estado": "abierta"
+      }
+    },
+    {
+      "id": "hist-1781288127514-488",
+      "ordenId": "ord-1781288127514",
+      "usuarioId": "usr-sol-1",
+      "accion": "creacion",
+      "fechaHora": "2026-06-12T18:15:27.514Z",
+      "valorAnterior": null,
+      "valorNuevo": {
+        "estado": "abierta"
+      }
+    },
+    {
+      "id": "hist-1781288153228-867",
+      "ordenId": "ord-1781288153228",
+      "usuarioId": "usr-sol-1",
+      "accion": "creacion",
+      "fechaHora": "2026-06-12T18:15:53.228Z",
+      "valorAnterior": null,
+      "valorNuevo": {
+        "estado": "abierta"
+      }
+    },
+    {
+      "id": "hist-1781289817307-372",
+      "ordenId": "ord-1781289817307",
+      "usuarioId": "usr-sol-1",
+      "accion": "creacion",
+      "fechaHora": "2026-06-12T18:43:37.307Z",
+      "valorAnterior": null,
+      "valorNuevo": {
+        "estado": "abierta"
+      }
+    },
+    {
+      "id": "hist-1781289965631-176",
+      "ordenId": "ord-1781289965631",
+      "usuarioId": "usr-sol-1",
+      "accion": "creacion",
+      "fechaHora": "2026-06-12T18:46:05.631Z",
+      "valorAnterior": null,
+      "valorNuevo": {
+        "estado": "abierta"
+      }
+    },
+    {
+      "id": "hist-1781290073952-689",
+      "ordenId": "ord-1781290073951",
+      "usuarioId": "usr-sol-1",
+      "accion": "creacion",
+      "fechaHora": "2026-06-12T18:47:53.952Z",
+      "valorAnterior": null,
+      "valorNuevo": {
+        "estado": "abierta"
+      }
+    }
+  ]
+}
