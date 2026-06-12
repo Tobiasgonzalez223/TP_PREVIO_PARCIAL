@@ -1,5 +1,5 @@
 // Importamos el servicio de órdenes (donde irán todas las reglas de negocio)
-const ordenesService = require('../services/ordenesService');
+import ordenesService from "../services/ordenesService.js";
 
 const listar = async (req, res, next) => {
   try {
@@ -86,7 +86,7 @@ const resolver = async (req, res, next) => {
   }
 };
 
-module.exports = {
+export {
   listar,
   obtenerResumen,
   obtenerPorId,
@@ -95,5 +95,5 @@ module.exports = {
   editar,
   cancelar,
   asignar,
-  resolver
+  resolver,
 };

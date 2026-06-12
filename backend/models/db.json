@@ -363,6 +363,30 @@
       "estado": "abierta",
       "fechaCreacion": "2026-06-12T18:47:53.951Z",
       "fechaResolucion": null
+    },
+    {
+      "id": "ord-1781293684395",
+      "activoId": "act-1",
+      "titulo": "Falla en test",
+      "descripcion": "Test automatizado",
+      "solicitanteId": "usr-sol-1",
+      "tecnicoId": null,
+      "prioridad": "media",
+      "estado": "abierta",
+      "fechaCreacion": "2026-06-12T19:48:04.395Z",
+      "fechaResolucion": null
+    },
+    {
+      "id": "ord-1781297168617",
+      "activoId": "act-1",
+      "titulo": "Falla en test",
+      "descripcion": "Test automatizado",
+      "solicitanteId": "usr-sol-1",
+      "tecnicoId": null,
+      "prioridad": "media",
+      "estado": "abierta",
+      "fechaCreacion": "2026-06-12T20:46:08.617Z",
+      "fechaResolucion": null
     }
   ],
   "historial_ordenes": [
@@ -581,6 +605,28 @@
       "usuarioId": "usr-sol-1",
       "accion": "creacion",
       "fechaHora": "2026-06-12T18:47:53.952Z",
+      "valorAnterior": null,
+      "valorNuevo": {
+        "estado": "abierta"
+      }
+    },
+    {
+      "id": "hist-1781293684396-448",
+      "ordenId": "ord-1781293684395",
+      "usuarioId": "usr-sol-1",
+      "accion": "creacion",
+      "fechaHora": "2026-06-12T19:48:04.396Z",
+      "valorAnterior": null,
+      "valorNuevo": {
+        "estado": "abierta"
+      }
+    },
+    {
+      "id": "hist-1781297168617-71",
+      "ordenId": "ord-1781297168617",
+      "usuarioId": "usr-sol-1",
+      "accion": "creacion",
+      "fechaHora": "2026-06-12T20:46:08.617Z",
       "valorAnterior": null,
       "valorNuevo": {
         "estado": "abierta"

@@ -1,5 +1,5 @@
 // Importamos el servicio de autenticación (lo vas a crear en la carpeta services)
-const authService = require('../services/authService');
+import authService from '../services/authService.js';
 
 const register = async (req, res, next) => {
   try {
@@ -23,7 +23,7 @@ const login = async (req, res, next) => {
   }
 };
 
-module.exports = {
+export {
   register,
   login
 };

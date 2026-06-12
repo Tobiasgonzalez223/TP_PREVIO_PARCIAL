@@ -1,12 +1,11 @@
-const express = require('express');
+import express from "express";
 const router = express.Router();
 // Importamos el controlador de órdenes
-const ordenesController = require('../controllers/ordenesController');
+import * as ordenesController from "../controllers/ordenesController.js";
 // Importamos los middlewares de seguridad que te pasé en el paso anterior
-const { verifyToken } = require('../middlewares/authMiddleware');
-const verifyRole = require('../middlewares/roleMiddleware');
-const validarCampos = require('../middlewares/validationMiddleware');
-
+import { verifyToken } from "../middlewares/authMiddleware.js";
+import verifyRole from "../middlewares/roleMiddleware.js";
+import validarCampos from "../middlewares/validationMiddleware.js";
 // Middleware a nivel de router: TODAS las rutas de abajo requerirán un JWT válido 
 router.use(verifyToken);
 
@@ -37,4 +36,4 @@ router.patch('/:id/asignar', verifyRole(['admin', 'mantenimiento']), ordenesCont
 // PATCH /api/ordenes/:id/resolver - Acción específica: Resolver orden (pensado para el técnico) [cite: 107, 89]
 router.patch('/:id/resolver', verifyRole(['tecnico']), ordenesController.resolver);
 
-module.exports = router;
+export default router;

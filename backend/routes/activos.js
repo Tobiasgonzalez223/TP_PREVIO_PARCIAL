@@ -1,9 +1,9 @@
-const express = require('express');
+import express from "express";
 const router = express.Router();
-const activosController = require('../controllers/activosController');
-const { verifyToken } = require('../middlewares/authMiddleware');
+import * as activosController from "../controllers/activosController.js";
+import { verifyToken } from "../middlewares/authMiddleware.js";
 
 // El listado de activos también debería estar protegido
 router.get('/', verifyToken, activosController.listar);
 
-module.exports = router;
+export default router;

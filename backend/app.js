@@ -1,10 +1,10 @@
-const express = require('express');
-const cors = require('cors');
+import express from "express";
+import cors from "cors";
 
-// 1. Importamos las rutas
-const authRoutes = require('./routes/auth.js');
-const ordenesRoutes = require('./routes/ordenes.js');
-const activosRoutes = require('./routes/activos.js'); // Importación correcta
+// 1.Importamos las rutas
+import authRoutes from "./routes/auth.js";
+import ordenesRoutes from "./routes/ordenes.js";
+import activosRoutes from "./routes/activos.js"; // Importación correcta
 
 // 2. Inicializamos la app 
 const app = express();
@@ -30,4 +30,4 @@ app.use((err, req, res, next) => {
   res.status(status).json({ error: message });
 });
 
-module.exports = app;
+export default app;
