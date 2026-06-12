@@ -1,0 +1,32 @@
+*** Begin Patch
+*** Update File: c:\Users\Admin\Desktop\FACU\TPIDDS\TP_PREVIO_PARCIAL\frontend\src\components\ResumenPanel.tsx
+@@
+-            <section
+-                style={{
+-                    position: "relative",
+-                    width: "100%",
+-                    background: cardBackgroundColor,
+-                    border: `1px solid ${borderColor}`,
+-                    borderRadius: radius,
+-                    padding: "14px 14px",
+-                    display: "flex",
+-                    flexDirection: "column",
+-                    gap: 12,
+-                    overflow: "hidden",
+-                }}
+-                aria-label="Órdenes por estado"
++            <section
++                style={{
++                    position: "relative",
++                    width: "100%",
++                    background: cardBackgroundColor,
++                    border: `1px solid ${borderColor}`,
++                    borderRadius: radius,
++                    padding: "10px 12px",
++                    display: "flex",
++                    flexDirection: "column",
++                    gap: 10,
++                    overflow: "hidden",
++                }}
++                aria-label="Órdenes por estado"
+*** End Patch
