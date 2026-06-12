@@ -1,4 +1,3 @@
-// Importamos el servicio de órdenes (donde irán todas las reglas de negocio)
 const ordenesService = require('../services/ordenesService');
 
 const listar = async (req, res, next) => {
