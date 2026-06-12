@@ -1,6 +1,7 @@
 import {
     startTransition,
     useCallback,
+    useEffect,
     useMemo,
     useState,
     type CSSProperties,
@@ -10,49 +11,62 @@ import {
 type FontLike = any
 
 type LoginFormProps = {
-    title: string
-    helperText: string
+    title?: string
+    helperText?: string
 
     // Login
-    emailLabel: string
-    passwordLabel: string
-    emailPlaceholder: string
-    passwordPlaceholder: string
-    buttonLabel: string
+    emailLabel?: string
+    passwordLabel?: string
+    emailPlaceholder?: string
+    passwordPlaceholder?: string
+    buttonLabel?: string
 
     // Register
-    enableRegister: boolean
-    registerLinkLabel: string
-    backToLoginLabel: string
-    registerTitle: string
-    registerHelperText: string
-    nameLabel: string
-    namePlaceholder: string
-    confirmPasswordLabel: string
-    confirmPasswordPlaceholder: string
-    registerButtonLabel: string
+    enableRegister?: boolean
+    registerLinkLabel?: string
+    backToLoginLabel?: string
+    registerTitle?: string
+    registerHelperText?: string
+    nameLabel?: string
+    namePlaceholder?: string
+    confirmPasswordLabel?: string
+    confirmPasswordPlaceholder?: string
+    registerButtonLabel?: string
 
-    initialError: string
-    backgroundColor: string
-    cardColor: string
-    borderColor: string
-    textColor: string
-    placeholderColor: string
-    errorColor: string
-    buttonColor: string
-    buttonTextColor: string
-    radius: number
-    gap: number
-    padding: string
-    titleFont: FontLike
-    labelFont: FontLike
-    inputFont: FontLike
-    helperFont: FontLike
-    errorFont: FontLike
-    buttonFont: FontLike
-    onSubmit: () => void
-    onSuccess: () => void
-    onError: () => void
+    initialError?: string
+    backgroundColor?: string
+    cardColor?: string
+    borderColor?: string
+    textColor?: string
+    placeholderColor?: string
+    errorColor?: string
+    buttonColor?: string
+    buttonTextColor?: string
+    radius?: number
+    gap?: number
+    padding?: string
+    titleFont?: FontLike
+    labelFont?: FontLike
+    inputFont?: FontLike
+    helperFont?: FontLike
+    errorFont?: FontLike
+    buttonFont?: FontLike
+    onSubmit?: (payload: {
+        email: string
+        password: string
+        name: string
+        confirmPassword: string
+        mode: "login" | "register"
+    }) => void
+    onSuccess?: (payload: {
+        email: string
+        password: string
+        name: string
+        confirmPassword: string
+        mode: "login" | "register"
+    }) => void
+    onError?: (message: string) => void
+    externalError?: string
     style?: CSSProperties
 }
 
@@ -90,6 +104,7 @@ export default function LoginForm(props: LoginFormProps) {
         confirmPasswordPlaceholder = "••••••••",
         registerButtonLabel = "Registrar",
         initialError,
+        externalError,
         backgroundColor = "#F8FAFC",
         cardColor = "#FFFFFF",
         borderColor = "#E5E7EB",
@@ -122,6 +137,13 @@ export default function LoginForm(props: LoginFormProps) {
     const [showPassword, setShowPassword] = useState(false)
     const [error, setError] = useState(initialError || "")
     const [touched, setTouched] = useState(false)
+
+    useEffect(() => {
+        if (externalError) {
+            setError(externalError)
+            setTouched(true)
+        }
+    }, [externalError])
 
     const isFixedWidth = !!(style && style.width === "100%")
 
@@ -161,20 +183,29 @@ export default function LoginForm(props: LoginFormProps) {
     const handleSubmit = useCallback(
         (e: FormEvent) => {
             e.preventDefault()
-            if (onSubmit) onSubmit()
+
+            const payload = {
+                email,
+                password,
+                name,
+                confirmPassword,
+                mode,
+            }
+
+            if (onSubmit) onSubmit(payload)
 
             startTransition(() => setTouched(true))
             const msg = validate()
             if (msg) {
                 startTransition(() => setError(msg))
-                if (onError) onError()
+                if (onError) onError(msg)
                 return
             }
 
             startTransition(() => setError(""))
-            if (onSuccess) onSuccess()
+            if (onSuccess) onSuccess(payload)
         },
-        [onSubmit, onSuccess, onError, validate]
+        [onSubmit, onSuccess, onError, validate, email, password, name, confirmPassword, mode]
     )
 
     const showError = (touched || !!initialError) && !!error
