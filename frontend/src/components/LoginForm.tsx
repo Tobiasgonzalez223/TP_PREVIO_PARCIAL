@@ -1,3 +1,4 @@
+import ErrorMessage from "./Error"
 import {
     startTransition,
     useCallback,
@@ -53,6 +54,7 @@ type LoginFormProps = {
     onSubmit: () => void
     onSuccess: () => void
     onError: () => void
+    backendError?: any
     style?: CSSProperties
 }
 
@@ -110,6 +112,7 @@ export default function LoginForm(props: LoginFormProps) {
         onSubmit,
         onSuccess,
         onError,
+        backendError,
         style,
     } = props
 
@@ -528,7 +531,21 @@ export default function LoginForm(props: LoginFormProps) {
                     </div>
                 ) : null}
 
-                {showError ? (
+                {backendError ? (
+                    <ErrorMessage
+                        error={backendError}
+                        showIcon={true}
+                        icon="⚠️"
+                        backgroundColor="#FEF2F2"
+                        borderColor="#FECACA"
+                        textColor="#991B1B"
+                        iconColor="#991B1B"
+                        borderRadius="10px"
+                        padding="12px"
+                        gap={10}
+                        font={{ fontSize: "14px", lineHeight: "1.4em" }}
+                    />
+                ) : showError ? (
                     <div
                         role="alert"
                         style={{

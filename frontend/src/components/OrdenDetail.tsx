@@ -5,6 +5,7 @@ import React, {
     useState,
     type CSSProperties,
 } from "react"
+import ErrorMessage from "./Error"
 
 type Priority = "Baja" | "Media" | "Alta" | "Crítica"
 type Status = "Abierta" | "En progreso" | "En espera" | "Resuelta" | "Cancelada"
@@ -65,6 +66,7 @@ interface OrdenDetailProps {
     onAsignar: (event: any) => void
     onCancelar: (event: any) => void
     onResolver: (event: any) => void
+    backendError?: any
 
     style?: CSSProperties
 }
@@ -121,6 +123,7 @@ export default function OrdenDetail(props: OrdenDetailProps) {
         onAsignar,
         onCancelar,
         onResolver,
+        backendError,
         style,
     } = props
 
@@ -268,6 +271,23 @@ export default function OrdenDetail(props: OrdenDetailProps) {
             }}
             aria-label="Detalle de orden"
         >
+            {backendError ? (
+                <div style={{ padding: 16 }}>
+                    <ErrorMessage
+                        error={backendError}
+                        showIcon={true}
+                        icon="⚠️"
+                        backgroundColor="#FEF2F2"
+                        borderColor="#FECACA"
+                        textColor="#991B1B"
+                        iconColor="#991B1B"
+                        borderRadius="10px"
+                        padding="12px"
+                        gap={10}
+                        font={{ fontSize: "14px", lineHeight: "1.4em" }}
+                    />
+                </div>
+            ) : null}
             {assignOpen && (
                 <div
                     role="dialog"

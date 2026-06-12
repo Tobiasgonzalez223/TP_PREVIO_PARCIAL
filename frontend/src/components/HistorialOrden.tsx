@@ -1,4 +1,5 @@
 import React, { useMemo, type CSSProperties } from "react"
+import ErrorMessage from "./Error"
 
 type DateFormatMode = "short" | "medium" | "long" | "raw"
 
@@ -34,6 +35,7 @@ interface HistorialOrdenProps {
     fuenteFila?: CSSProperties
     dateLocale?: string
     dateOptions?: DateFormatMode
+    backendError?: any
     style?: CSSProperties
 }
 
@@ -116,6 +118,7 @@ export default function HistorialOrden(props: HistorialOrdenProps) {
         fuenteFila = {},
         dateLocale = "es-ES",
         dateOptions = "medium",
+        backendError,
         style,
     } = props
 
@@ -190,6 +193,21 @@ export default function HistorialOrden(props: HistorialOrdenProps) {
                     height: "100%",
                 }}
             >
+                {backendError ? (
+                    <ErrorMessage
+                        error={backendError}
+                        showIcon={true}
+                        icon="⚠️"
+                        backgroundColor="#FEF2F2"
+                        borderColor="#FECACA"
+                        textColor="#991B1B"
+                        iconColor="#991B1B"
+                        borderRadius="10px"
+                        padding="12px"
+                        gap={10}
+                        font={{ fontSize: "14px", lineHeight: "1.4em" }}
+                    />
+                ) : null}
                 {mostrarEncabezados && (
                     <div
                         role="row"
