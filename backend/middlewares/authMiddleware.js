@@ -1,4 +1,4 @@
-const jwt = require('jsonwebtoken');
+import jwt from "jsonwebtoken";
 // En un entorno real, esta clave debe ir en un archivo .env
 const SECRET = 'clave_secreta_tp'; 
 
@@ -24,4 +24,4 @@ const verifyToken = (req, res, next) => {
   });
 };
 
-module.exports = { verifyToken, SECRET };
+export { verifyToken, SECRET };

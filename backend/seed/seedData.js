@@ -1,10 +1,12 @@
-const fs = require('fs/promises');
-const path = require('path');
-// Usamos bcrypt para cumplir con la obligatoriedad de contraseñas seguras.
-// Asegurate de tenerlo instalado: npm install bcrypt
-const bcrypt = require('bcrypt');
+import fs from "fs/promises";
+import path from "path";
+import bcrypt from "bcrypt";
+import { fileURLToPath } from "url";
 
-const dbPath = path.join(__dirname, '../models/db.json');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const dbPath = path.join(__dirname, "../models/db.json");
 
 async function generarSemilla() {
   console.log('Generando datos semilla...');

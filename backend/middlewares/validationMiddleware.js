@@ -13,4 +13,4 @@ const validarCamposObligatorios = (campos) => {
   };
 };
 
-module.exports = validarCamposObligatorios;
+export default validarCamposObligatorios;
