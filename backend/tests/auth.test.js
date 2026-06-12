@@ -1,5 +1,5 @@
-const request = require('supertest');
-const app = require('../app'); // Importamos la app, no el server.js
+import request from "supertest";
+import app from "../app.js"; // Importamos la app, no el server.js
 
 describe('Pruebas de Autenticación y Seguridad', () => {
   

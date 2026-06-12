@@ -1,4 +1,4 @@
-const activosService = require('../services/activosService');
+import activosService from '../services/activosService.js';
 
 const listar = async (req, res, next) => {
   try {
@@ -9,4 +9,4 @@ const listar = async (req, res, next) => {
   }
 };
 
-module.exports = { listar };
+export { listar };
