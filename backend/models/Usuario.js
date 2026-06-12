@@ -6,7 +6,7 @@ export default (sequelize) => {
     nombre: { type: DataTypes.STRING, allowNull: false },
     email: { type: DataTypes.STRING, allowNull: false, unique: true },
     passwordHash: { type: DataTypes.STRING, allowNull: false },
-    rol: { type: DataTypes.STRING, allowNull: false }, // solicitante, técnico, admin
+    rol: { type: DataTypes.ENUM('solicitante', 'tecnico', 'mantenimiento', 'admin'), allowNull: false, defaultValue: "solicitante" }, // solicitante, técnico, admin
     activo: { type: DataTypes.BOOLEAN, defaultValue: true }
   });
   return Usuario;
