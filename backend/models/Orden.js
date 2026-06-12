@@ -8,8 +8,8 @@ export default (sequelize) => {
     descripcion: { type: DataTypes.TEXT, allowNull: false },
     solicitanteId: { type: DataTypes.STRING, allowNull: false },
     tecnicoId: { type: DataTypes.STRING, allowNull: true },
-    prioridad: { type: DataTypes.STRING, allowNull: false }, // baja, media, alta, urgente
-    estado: { type: DataTypes.STRING, allowNull: false }, // abierta, asignada, en proceso, resuelta, cancelada
+    prioridad: { type: DataTypes.ENUM("baja", "media", "alta", "urgente"), allowNull: false }, // baja, media, alta, urgente
+    estado: { type: DataTypes.ENUM("abierta", "asignada", "en_proceso", "resuelta", "cancelada"), allowNull: false }, // abierta, asignada, en proceso, resuelta, cancelada
     fechaCreacion: { type: DataTypes.DATE, allowNull: false },
     fechaResolucion: { type: DataTypes.DATE, allowNull: true }
   });
