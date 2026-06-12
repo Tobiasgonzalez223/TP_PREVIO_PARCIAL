@@ -365,11 +365,7 @@
       "fechaResolucion": null
     },
     {
-<<<<<<< HEAD
-      "id": "ord-1781292809627",
-=======
       "id": "ord-1781293684395",
->>>>>>> 8d7d7fdf3070ef198ec3c6d42d9ac97db15c5066
       "activoId": "act-1",
       "titulo": "Falla en test",
       "descripcion": "Test automatizado",
