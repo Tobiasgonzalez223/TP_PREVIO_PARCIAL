@@ -7,6 +7,7 @@ import {
     useRef,
     useState,
 } from "react"
+import ErrorMessage from "./Error"
 
 type PriorityValue = "Baja" | "Media" | "Alta" | string
 
@@ -46,6 +47,7 @@ interface OrdenFormProps {
     gap: number
 
     onConfirm: (event?: any) => void
+    backendError?: any
 
     style?: CSSProperties
 }
@@ -89,6 +91,7 @@ export default function OrdenForm(props: OrdenFormProps) {
         padding,
         gap,
         onConfirm,
+        backendError,
         style,
     } = props
 
@@ -263,6 +266,21 @@ export default function OrdenForm(props: OrdenFormProps) {
                 }}
                 aria-label="Formulario de orden"
             >
+                {backendError ? (
+                    <ErrorMessage
+                        error={backendError}
+                        showIcon={true}
+                        icon="⚠️"
+                        backgroundColor="#FEF2F2"
+                        borderColor="#FECACA"
+                        textColor="#991B1B"
+                        iconColor="#991B1B"
+                        borderRadius="10px"
+                        padding="12px"
+                        gap={10}
+                        font={{ fontSize: "14px", lineHeight: "1.4em" }}
+                    />
+                ) : null}
                 <div style={{ width: "100%" }}>
                     <label htmlFor={`activo-${fieldId}`} style={labelStyle}>
                         {activoLabel}

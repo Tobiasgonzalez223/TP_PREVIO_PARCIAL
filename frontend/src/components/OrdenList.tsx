@@ -5,6 +5,7 @@ import React, {
     useState,
     type CSSProperties,
 } from "react"
+import ErrorMessage from "./Error"
 
 type SortDir = "asc" | "desc"
 
@@ -35,6 +36,7 @@ interface OrdenListProps {
 
     headerFont: any
     cellFont: any
+    backendError?: any
 
     style?: CSSProperties
 }
@@ -81,6 +83,7 @@ export default function OrdenList(props: OrdenListProps) {
         rowHoverColor,
         headerFont,
         cellFont,
+        backendError,
         style,
     } = props
 
@@ -321,6 +324,23 @@ export default function OrdenList(props: OrdenListProps) {
 
     return (
         <section style={{ ...container, ...style }} aria-label="Listado de órdenes">
+            {backendError ? (
+                <div style={{ padding: 16 }}>
+                    <ErrorMessage
+                        error={backendError}
+                        showIcon={true}
+                        icon="⚠️"
+                        backgroundColor="#FEF2F2"
+                        borderColor="#FECACA"
+                        textColor="#991B1B"
+                        iconColor="#991B1B"
+                        borderRadius="10px"
+                        padding="12px"
+                        gap={10}
+                        font={{ fontSize: "14px", lineHeight: "1.4em" }}
+                    />
+                </div>
+            ) : null}
             <div style={topBar} aria-label="Filtros">
                 <div style={{ display: "flex", flexDirection: "column" }}>
                     <span style={labelStyle}>Activo</span>

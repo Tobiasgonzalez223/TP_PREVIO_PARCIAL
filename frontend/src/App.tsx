@@ -1,4 +1,6 @@
 import * as React from "react"
+import LoadingIcon from './components/LoadingIcon'
+import { onLoading } from './services/loading'
 
 // ViewKey and props typings removed to keep this file as plain JSX
 
@@ -54,6 +56,12 @@ export default function AppShell(props: any) {
 
     const [currentView, setCurrentView] = React.useState(initialView)
     const [hoveredKey, setHoveredKey] = React.useState<string | null>(null)
+    const [globalLoading, setGlobalLoading] = React.useState(false)
+
+    React.useEffect(() => {
+        const unsub = onLoading((v) => setGlobalLoading(Boolean(v)))
+        return unsub
+    }, [])
 
     React.useEffect(() => {
         React.startTransition(() => setCurrentView(initialView))
@@ -90,7 +98,8 @@ export default function AppShell(props: any) {
     const renderContent = () => {
         if (!isValidViewKey(currentView) || !viewNode) {
             return (
-                <div
+                <>
+                    <div
                     style={{
                         width: "100%",
                         height: "100%",
@@ -109,11 +118,13 @@ export default function AppShell(props: any) {
                     <div style={{ ...notFoundFont, color: textColor }}>{notFoundTitle}</div>
                     <div style={{ ...notFoundFont, color: textColor, opacity: 0.7 }}>{notFoundBody}</div>
                 </div>
+            </>
             )
         }
 
         return (
-            <div
+            <>
+                <div
                 style={{
                     width: "100%",
                     height: "100%",
@@ -127,8 +138,9 @@ export default function AppShell(props: any) {
                     <div style={{ ...titleFont, color: textColor }}>{currentMeta?.label}</div>
                 )}
                 <div style={{ width: "100%", height: "100%", minHeight: 0 }}>{viewNode}</div>
-            </div>
-        )
+                    </div>
+                </>
+            )
     }
 
     const isFixedWidth = !!(style && style.width === "100%")
@@ -137,7 +149,8 @@ export default function AppShell(props: any) {
     const computedNavWidth = 260
 
     return (
-        <div
+        <>
+            <div
             style={{
                 ...style,
                 position: "relative",
@@ -223,7 +236,15 @@ export default function AppShell(props: any) {
                     {renderContent()}
                 </div>
             </main>
-        </div>
+            </div>
+            {globalLoading && (
+            <div style={{ position: 'fixed', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(0,0,0,0.25)', zIndex: 9999 }}>
+                <div style={{ width: 128, height: 128, background: '#FFFFFF', borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 12 }}>
+                    <LoadingIcon visible showLabel={true} label="Cargando..." size={56} />
+                </div>
+            </div>
+            )}
+        </>
     )
 }
 
