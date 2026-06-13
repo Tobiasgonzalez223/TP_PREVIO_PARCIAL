@@ -18,8 +18,8 @@ const registrarHistorial = (db, ordenId, usuarioId, accion, valorAnterior, valor
     usuarioId,
     accion,
     fechaHora: new Date().toISOString(),
-    valorAnterior,
-    valorNuevo
+    valorAnterior: valorAnterior ? JSON.stringify(valorAnterior) : null,
+    valorNuevo: valorNuevo ? JSON.stringify(valorNuevo) : null
   });
 };
 
@@ -112,23 +112,14 @@ const asignarTecnico = async (idOrden, tecnicoId, usuario) => {
 const resolverOrden = async (idOrden, usuario) => {
   const db = await leerDB();
   const orden = db.ordenes.find(o => o.id === idOrden);
-  // 1. PRIMERO validamos el estado
-  if (orden.estado === 'cancelada') {
-    throw { status: 400, message: 'No se puede resolver una orden cancelada' }; // O el mensaje que ya tenías
-  }
-
-  // 2. DESPUÉS validamos el técnico
-  if (!orden.tecnicoId) {
-    throw { status: 400, message: 'No se puede resolver una orden sin técnico asignado' };
-  }
-
-  if (!orden) throw { status: 404, message: 'Orden no encontrada' };
   
-  // Regla: Rechazar marcar como resuelta sin tecnicoId [cite: 63, 81]
-  if (!orden.tecnicoId) throw { status: 400, message: 'No se puede resolver una orden sin técnico asignado' };
+  if (!orden) throw { status: 404, message: 'Orden no encontrada' };
   
   // Regla: No resolver orden cancelada [cite: 67]
   if (orden.estado === 'cancelada') throw { status: 400, message: 'No se puede resolver una orden cancelada' };
+  
+  // Regla: Rechazar marcar como resuelta sin tecnicoId [cite: 63, 81]
+  if (!orden.tecnicoId) throw { status: 400, message: 'No se puede resolver una orden sin técnico asignado' };
 
   const estadoAnterior = orden.estado;
   orden.estado = 'resuelta';
@@ -181,20 +172,39 @@ const generarResumen = async () => {
 };
 
 const obtenerPorId = async (id) => {
-  const db = JSON.parse(await fs.readFile(dbPath, 'utf-8'));
+  const db = await leerDB();
   const orden = db.ordenes.find(o => o.id === id);
   if (!orden) throw { status: 404, message: 'Orden no encontrada' };
   return orden;
 };
 
 const obtenerHistorialPorOrden = async (id) => {
-  const db = JSON.parse(await fs.readFile(dbPath, 'utf-8'));
+  const db = await leerDB();
   return db.historial_ordenes.filter(h => h.ordenId === id);
 };
 
-const editarOrden = async (id, datos) => {
-  // Estructura base para cumplir con la firma del controlador
-  return true;
+const editarOrden = async (id, datos, usuario) => {
+  const db = await leerDB();
+  const orden = db.ordenes.find(o => o.id === id);
+  
+  if (!orden) throw { status: 404, message: 'Orden no encontrada' };
+  
+  const estadoAnterior = { titulo: orden.titulo, descripcion: orden.descripcion, prioridad: orden.prioridad };
+  
+  if (datos.titulo) orden.titulo = datos.titulo;
+  if (datos.descripcion) orden.descripcion = datos.descripcion;
+  if (datos.prioridad) {
+    const activo = db.activos.find(a => a.id === orden.activoId);
+    if (activo && activo.criticidad === 'alta' && datos.prioridad === 'baja') {
+      throw { status: 400, message: 'Prioridad inválida: activo de criticidad alta no admite prioridad baja' };
+    }
+    orden.prioridad = datos.prioridad;
+  }
+  
+  registrarHistorial(db, orden.id, usuario.id, 'edicion', estadoAnterior, { titulo: orden.titulo, descripcion: orden.descripcion, prioridad: orden.prioridad });
+  
+  await guardarDB(db);
+  return orden;
 };
 
 export default {

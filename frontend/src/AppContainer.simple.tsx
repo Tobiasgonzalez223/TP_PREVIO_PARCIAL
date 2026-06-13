@@ -31,11 +31,11 @@ const initialSummary = {
 
 const enrichOrder = (rawOrder: any, activos: any[], usuarios: any[]): any => {
   if (!rawOrder) return emptyOrder
-
+  
   const activo = activos.find(a => a.id === rawOrder.activoId)
   const solicitante = usuarios.find(u => u.id === rawOrder.solicitanteId)
   const tecnico = usuarios.find(u => u.id === rawOrder.tecnicoId)
-
+  
   return {
     ...rawOrder,
     activo: activo?.nombre || rawOrder.activoId || "",
@@ -57,36 +57,40 @@ export default function AppContainer() {
   const [activos, setActivos] = React.useState<any[]>([])
   const [usuarios, setUsuarios] = React.useState<any[]>([])
 
+  // Efecto para cargar datos iniciales cuando el usuario se autentica
   React.useEffect(() => {
     if (!currentUser) return
 
-    const loadData = async () => {
+    const loadInitialData = async () => {
       try {
         setLoadingMessage("Cargando datos...")
-
+        
+        // Cargar activos y usuarios en paralelo
         const [activosData, usuariosData] = await Promise.all([
           activosService.listar(),
-          usuariosService.listar(),
+          usuariosService.listar()
         ])
-
+        
         setActivos(Array.isArray(activosData) ? activosData : [])
         setUsuarios(Array.isArray(usuariosData) ? usuariosData : [])
-
+        
+        // Ahora cargar órdenes con los datos ya disponibles
         const ordersData = await ordenesService.listar()
         const enrichedOrders = Array.isArray(ordersData)
           ? ordersData.map(o => enrichOrder(o, activosData, usuariosData))
           : []
-
+        
         setOrders(enrichedOrders)
         if (enrichedOrders.length > 0) {
           setSelectedOrder(enrichedOrders[0])
           const historialData = await ordenesService.obtenerHistorial(enrichedOrders[0].id)
           setHistorial(Array.isArray(historialData) ? historialData : [])
         }
-
+        
+        // Cargar resumen
         const summaryData = await ordenesService.obtenerResumen()
         setSummary(summaryData || initialSummary)
-
+        
         setBackendError(null)
       } catch (error) {
         setBackendError(error)
@@ -95,7 +99,7 @@ export default function AppContainer() {
       }
     }
 
-    loadData()
+    loadInitialData()
   }, [currentUser])
 
   const handleAssign = async (event: any) => {
@@ -169,7 +173,7 @@ export default function AppContainer() {
   const loginView = (
     <LoginForm
       title="Iniciar sesión"
-      helperText="Usa el backend para autenticar."
+      helperText="Usa el backend para autenticar y mostrar errores reales."
       emailLabel="Email"
       passwordLabel="Contraseña"
       emailPlaceholder="admin@dds.com"
@@ -179,7 +183,7 @@ export default function AppContainer() {
       registerLinkLabel="Registrarse"
       backToLoginLabel="Volver"
       registerTitle="Crear cuenta"
-      registerHelperText="Completa los datos."
+      registerHelperText="Completa los datos para registrarte."
       nameLabel="Nombre"
       namePlaceholder="Nombre"
       confirmPasswordLabel="Repetir contraseña"
@@ -208,10 +212,7 @@ export default function AppContainer() {
         setBackendError(null)
         setLoadingMessage("Iniciando sesión...")
         try {
-          const result = await authService.login({
-            email: payload.email,
-            password: payload.password,
-          })
+          const result = await authService.login({ email: payload.email, password: payload.password })
           setCurrentUser(result.usuario)
         } catch (error: any) {
           setBackendError(error?.response?.data || error)
@@ -222,7 +223,7 @@ export default function AppContainer() {
       onError={(msg) => {
         setBackendError({ message: msg })
       }}
-      externalError={backendError}
+      backendError={backendError}
     />
   )
 
@@ -250,9 +251,7 @@ export default function AppContainer() {
       titulo="Detalle"
       orden={selectedOrder}
       historial={historial}
-      tecnicosDisponibles={usuarios
-        .filter(u => u.rol === "tecnico")
-        .map(u => u.nombre)}
+      tecnicosDisponibles={usuarios.filter(u => u.rol === 'tecnico').map(u => u.nombre)}
       asignarModalTitulo="Asignar técnico"
       asignarModalPlaceholder="Selecciona un técnico"
       asignarModalConfirmarLabel="Asignar"
@@ -296,7 +295,7 @@ export default function AppContainer() {
       prioridades={["Alta", "Media", "Baja"]}
       prioridadInicial="Media"
       tecnicoLabel="Técnico"
-      tecnicos={usuarios.filter(u => u.rol === "tecnico").map(u => u.nombre)}
+      tecnicos={usuarios.filter(u => u.rol === 'tecnico').map(u => u.nombre)}
       tecnicoInicial=""
       confirmarLabel="Crear"
       resetOnConfirm={true}
@@ -334,10 +333,10 @@ export default function AppContainer() {
       mutedTextColor="#9CA3AF"
       titleFont={{ fontSize: "20px" }}
       labelFont={{ fontSize: "13px" }}
-      numberFont={{ fontSize: "28px" }}
-      radius="8px"
-      padding="16px"
+      valueFont={{ fontSize: "28px" }}
+      padding={16}
       gap={12}
+      radius={8}
       style={{ width: "100%" }}
     />
   )
@@ -366,28 +365,22 @@ export default function AppContainer() {
 
   return (
     <App
-      initialView={currentUser ? "listado" : "login"}
       loginView={loginView}
       ordenListView={ordenListView}
       ordenDetailView={ordenDetailView}
       ordenFormView={ordenFormView}
       resumenView={resumenView}
       historialView={historialView}
-      backgroundColor="#F3F4F6"
-      navBackgroundColor="#FFFFFF"
-      borderColor="#E5E7EB"
-      textColor="#111827"
-      activeTextColor="#0066FF"
-      buttonBackgroundColor="#F5F5F5"
-      buttonHoverBackgroundColor="#E5E7EB"
-      navHeight={56}
-      navPadding="8px 12px"
-      contentPadding="16px"
-      navFont={{ fontSize: "14px" }}
-      showViewTitle={true}
-      titleFont={{ fontSize: "22px" }}
-      notFoundTitle="Sin vista"
-      notFoundBody="Selecciona una vista"
+      currentUser={currentUser}
+      loadingMessage={loadingMessage}
+      onLogout={() => {
+        authService.logout()
+        setCurrentUser(null)
+        setOrders([])
+        setSelectedOrder(emptyOrder)
+        setHistorial([])
+        setBackendError(null)
+      }}
     />
   )
 }

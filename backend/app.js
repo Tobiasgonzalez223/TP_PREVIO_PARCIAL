@@ -5,6 +5,7 @@ import cors from "cors";
 import authRoutes from "./routes/auth.js";
 import ordenesRoutes from "./routes/ordenes.js";
 import activosRoutes from "./routes/activos.js"; // Importación correcta
+import usuariosRoutes from "./routes/usuarios.js";
 
 // 2. Inicializamos la app 
 const app = express();
@@ -17,6 +18,7 @@ app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/ordenes', ordenesRoutes);
 app.use('/api/activos', activosRoutes); // Uso correcto de app.use() DESPUÉS de declararla
+app.use('/api/usuarios', usuariosRoutes);
 
 // 5. Middleware de errores y exportación
 app.use((req, res, next) => {
