@@ -42,6 +42,16 @@ const cancelar = async (id: string) => {
     return response.data
 }
 
+const enProceso = async (id: string) => {
+    const response = await api.patch(`/ordenes/${id}/en_proceso`)
+    return response.data
+}
+
+const editar = async (id: string, payload: Record<string, unknown>) => {
+    const response = await api.put(`/ordenes/${id}`, payload)
+    return response.data
+}
+
 export default {
     listar,
     obtenerPorId,
@@ -51,4 +61,6 @@ export default {
     asignar,
     resolver,
     cancelar,
+    enProceso,
+    editar,
 }

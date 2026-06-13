@@ -14,6 +14,7 @@ type PriorityValue = "Baja" | "Media" | "Alta" | string
 interface OrdenFormProps {
     activoLabel: string
     activoPlaceholder: string
+    activos?: string[]
     tituloLabel: string
     tituloPlaceholder: string
     descripcionLabel: string
@@ -65,6 +66,7 @@ export default function OrdenForm(props: OrdenFormProps) {
     const {
         activoLabel,
         activoPlaceholder,
+        activos,
         tituloLabel,
         tituloPlaceholder,
         descripcionLabel,
@@ -285,19 +287,30 @@ export default function OrdenForm(props: OrdenFormProps) {
                     <label htmlFor={`activo-${fieldId}`} style={labelStyle}>
                         {activoLabel}
                     </label>
-                    <input
-                        id={`activo-${fieldId}`}
-                        type="text"
-                        value={activo}
-                        placeholder={activoPlaceholder}
-                        onChange={(e) =>
-                            startTransition(() => setActivo(e.target.value))
-                        }
-                        style={inputBaseStyle}
-                        aria-label={activoLabel}
-                        autoComplete="off"
-                        inputMode="text"
-                    />
+                    {activos && activos.length > 0 ? (
+                        <select
+                            id={`activo-${fieldId}`}
+                            value={activo}
+                            onChange={(e) => startTransition(() => setActivo(e.target.value))}
+                            style={{ ...inputBaseStyle, height: 42 }}
+                            aria-label={activoLabel}
+                        >
+                            <option value="">Seleccioná un activo...</option>
+                            {activos.map((a) => <option key={a} value={a}>{a}</option>)}
+                        </select>
+                    ) : (
+                        <input
+                            id={`activo-${fieldId}`}
+                            type="text"
+                            value={activo}
+                            placeholder={activoPlaceholder}
+                            onChange={(e) => startTransition(() => setActivo(e.target.value))}
+                            style={inputBaseStyle}
+                            aria-label={activoLabel}
+                            autoComplete="off"
+                            inputMode="text"
+                        />
+                    )}
                 </div>
 
                 <div style={{ width: "100%" }}>

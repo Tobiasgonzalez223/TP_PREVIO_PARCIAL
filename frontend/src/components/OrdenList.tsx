@@ -37,6 +37,7 @@ interface OrdenListProps {
     headerFont: any
     cellFont: any
     backendError?: any
+    onSelect?: (item: any) => void
 
     style?: CSSProperties
 }
@@ -84,6 +85,7 @@ export default function OrdenList(props: OrdenListProps) {
         headerFont,
         cellFont,
         backendError,
+        onSelect,
         style,
     } = props
 
@@ -511,7 +513,8 @@ export default function OrdenList(props: OrdenListProps) {
                             paged.map((item, idx) => (
                                 <tr
                                     key={`${item.titulo}-${item.fecha}-${idx}`}
-                                    style={{ background: "transparent" }}
+                                    style={{ background: "transparent", cursor: onSelect ? "pointer" : "default" }}
+                                    onClick={() => onSelect?.(item)}
                                     onMouseEnter={(e) => {
                                         ;(e.currentTarget as HTMLTableRowElement).style.background = rowHoverColor
                                     }}
