@@ -86,6 +86,15 @@ const resolver = async (req, res, next) => {
   }
 };
 
+const pasarAEnProceso = async (req, res, next) => {
+  try {
+    const orden = await ordenesService.pasarAEnProceso(req.params.id, req.user);
+    res.status(200).json(orden);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export {
   listar,
   obtenerResumen,
@@ -95,5 +104,6 @@ export {
   editar,
   cancelar,
   asignar,
+  pasarAEnProceso,
   resolver,
 };
