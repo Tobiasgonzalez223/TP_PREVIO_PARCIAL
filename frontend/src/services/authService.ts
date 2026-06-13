@@ -15,8 +15,8 @@ const login = async (payload: LoginPayload) => {
     const response = await api.post("/auth/login", payload)
     const data = response.data
     if (data?.token) {
-        localStorage.setItem("authToken", data.token)
-        localStorage.setItem("authUser", JSON.stringify(data.usuario ?? null))
+        sessionStorage.setItem("authToken", data.token)
+        sessionStorage.setItem("authUser", JSON.stringify(data.usuario ?? null))
     }
     return data
 }
@@ -27,12 +27,12 @@ const register = async (payload: RegisterPayload) => {
 }
 
 const logout = () => {
-    localStorage.removeItem("authToken")
-    localStorage.removeItem("authUser")
+    sessionStorage.removeItem("authToken")
+    sessionStorage.removeItem("authUser")
 }
 
 const getCurrentUser = () => {
-    const raw = localStorage.getItem("authUser")
+    const raw = sessionStorage.getItem("authUser")
     if (!raw) return null
     try {
         return JSON.parse(raw)

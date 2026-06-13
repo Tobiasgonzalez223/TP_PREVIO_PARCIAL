@@ -13,7 +13,7 @@ const isTokenValid = (token) => {
 }
 
 const getInitialUser = () => {
-  const token = localStorage.getItem('authToken')
+  const token = sessionStorage.getItem('authToken')
   if (!token || !isTokenValid(token)) {
     authService.logout()
     return null
