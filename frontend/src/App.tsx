@@ -2,8 +2,6 @@ import * as React from "react"
 import LoadingIcon from './components/LoadingIcon'
 import { onLoading } from './services/loading'
 
-// ViewKey and props typings removed to keep this file as plain JSX
-
 const viewMeta = [
     { key: "login", label: "Ingresar" },
     { key: "listado", label: "Listado de Órdenes" },
@@ -17,15 +15,6 @@ function isValidViewKey(key: any): boolean {
     return viewMeta.some((v) => v.key === key)
 }
 
-/**
- * AppShell
- *
- * @framerIntrinsicWidth 1000
- * @framerIntrinsicHeight 700
- *
- * @framerSupportedLayoutWidth any-prefer-fixed
- * @framerSupportedLayoutHeight any-prefer-fixed
- */
 export default function AppShell(props: any) {
     const {
         initialView,
@@ -51,6 +40,7 @@ export default function AppShell(props: any) {
         notFoundTitle,
         notFoundBody,
         notFoundFont,
+        onLogout,
         style,
     } = props
 
@@ -74,20 +64,13 @@ export default function AppShell(props: any) {
     const viewNode = React.useMemo(() => {
         if (!isValidViewKey(currentView)) return null
         switch (currentView) {
-            case "login":
-                return loginView
-            case "listado":
-                return ordenListView
-            case "detalle":
-                return ordenDetailView
-            case "formulario":
-                return ordenFormView
-            case "resumen":
-                return resumenView
-            case "historial":
-                return historialView
-            default:
-                return null
+            case "login": return loginView
+            case "listado": return ordenListView
+            case "detalle": return ordenDetailView
+            case "formulario": return ordenFormView
+            case "resumen": return resumenView
+            case "historial": return historialView
+            default: return null
         }
     }, [currentView, historialView, loginView, ordenDetailView, ordenFormView, ordenListView, resumenView])
 
@@ -98,155 +81,158 @@ export default function AppShell(props: any) {
     const renderContent = () => {
         if (!isValidViewKey(currentView) || !viewNode) {
             return (
-                <>
-                    <div
+                <div
                     style={{
-                        width: "100%",
-                        height: "100%",
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        textAlign: "center",
-                        gap: 10,
-                        padding: "24px",
-                        boxSizing: "border-box",
+                        width: "100%", height: "100%", display: "flex",
+                        flexDirection: "column", alignItems: "center",
+                        justifyContent: "center", textAlign: "center",
+                        gap: 10, padding: "24px", boxSizing: "border-box",
                     }}
-                    role="status"
-                    aria-live="polite"
+                    role="status" aria-live="polite"
                 >
                     <div style={{ ...notFoundFont, color: textColor }}>{notFoundTitle}</div>
                     <div style={{ ...notFoundFont, color: textColor, opacity: 0.7 }}>{notFoundBody}</div>
                 </div>
-            </>
             )
         }
 
         return (
-            <>
-                <div
-                style={{
-                    width: "100%",
-                    height: "100%",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: 16,
-                    boxSizing: "border-box",
-                }}
-            >
+            <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", gap: 16, boxSizing: "border-box" }}>
                 {showViewTitle && (
                     <div style={{ ...titleFont, color: textColor }}>{currentMeta?.label}</div>
                 )}
                 <div style={{ width: "100%", height: "100%", minHeight: 0 }}>{viewNode}</div>
-                    </div>
-                </>
-            )
+            </div>
+        )
     }
 
     const isFixedWidth = !!(style && style.width === "100%")
     const isFixedHeight = !!(style && style.height === "100%")
-
     const computedNavWidth = 260
+
+    // Vistas que NO muestran el nav (ej: login)
+    const hideNav = currentView === "login"
 
     return (
         <>
             <div
-            style={{
-                ...style,
-                position: "relative",
-                width: "100%",
-                minHeight: "100vh",
-                display: "flex",
-                flexDirection: "row",
-                background: backgroundColor,
-                color: textColor,
-                overflow: "hidden",
-                boxSizing: "border-box",
-                ...(isFixedWidth ? null : { minWidth: 320 }),
-                ...(isFixedHeight ? null : { minHeight: 320 }),
-            }}
-        >
-            <nav
-                aria-label="Navegación"
                 style={{
-                    width: computedNavWidth,
-                    flex: "0 0 auto",
-                    display: "flex",
-                    flexDirection: 'column',
-                    alignItems: "stretch",
-                    gap: 8,
-                    padding: navPadding,
-                    background: navBackgroundColor,
-                    borderRight: `1px solid ${borderColor}`,
-                    overflowY: "auto",
-                    WebkitOverflowScrolling: "touch",
-                    boxSizing: "border-box",
-                    minHeight: '100vh'
-                }}
-            >
-                {viewMeta.map((item) => {
-                    const isActive = item.key === currentView
-                    const isHovered = item.key === hoveredKey
-                    return (
-                        <button
-                            key={item.key}
-                            type="button"
-                            onClick={() => handleNavigate(item.key)}
-                            onMouseEnter={() => {
-                                React.startTransition(() => setHoveredKey(item.key))
-                            }}
-                            onMouseLeave={() => {
-                                React.startTransition(() => setHoveredKey(null))
-                            }}
-                            style={{
-                                ...navFont,
-                                textAlign: 'left',
-                                appearance: "none",
-                                border: "none",
-                                background: isHovered ? buttonHoverBackgroundColor : 'transparent',
-                                color: isActive ? activeTextColor : textColor,
-                                padding: "12px 16px",
-                                borderRadius: 8,
-                                cursor: "pointer",
-                                whiteSpace: "nowrap",
-                                width: '100%',
-                                outline: "none",
-                            }}
-                            aria-current={isActive ? "page" : undefined}
-                        >
-                            {item.label}
-                        </button>
-                    )
-                })}
-            </nav>
-
-            <main
-                style={{
-                    flex: "1 1 auto",
+                    ...style,
+                    position: "relative",
                     width: "100%",
-                    minHeight: '100vh',
-                    padding: contentPadding,
+                    minHeight: "100vh",
+                    display: "flex",
+                    flexDirection: "row",
+                    background: backgroundColor,
+                    color: textColor,
+                    overflow: "hidden",
                     boxSizing: "border-box",
-                    overflow: "auto",
-                    display: 'flex',
-                    alignItems: 'stretch',
+                    ...(isFixedWidth ? null : { minWidth: 320 }),
+                    ...(isFixedHeight ? null : { minHeight: 320 }),
                 }}
             >
-                <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column' }}>
-                    {renderContent()}
-                </div>
-            </main>
+                {!hideNav && (
+                    <nav
+                        aria-label="Navegación"
+                        style={{
+                            width: computedNavWidth,
+                            flex: "0 0 auto",
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "stretch",
+                            gap: 8,
+                            padding: navPadding,
+                            background: navBackgroundColor,
+                            borderRight: `1px solid ${borderColor}`,
+                            overflowY: "auto",
+                            WebkitOverflowScrolling: "touch",
+                            boxSizing: "border-box",
+                            minHeight: "100vh",
+                        }}
+                    >
+                        {/* Filtrar "login" del nav ya que estamos autenticados */}
+                        {viewMeta.filter(v => v.key !== "login").map((item) => {
+                            const isActive = item.key === currentView
+                            const isHovered = item.key === hoveredKey
+                            return (
+                                <button
+                                    key={item.key}
+                                    type="button"
+                                    onClick={() => handleNavigate(item.key)}
+                                    onMouseEnter={() => React.startTransition(() => setHoveredKey(item.key))}
+                                    onMouseLeave={() => React.startTransition(() => setHoveredKey(null))}
+                                    style={{
+                                        ...navFont,
+                                        textAlign: "left",
+                                        appearance: "none",
+                                        border: "none",
+                                        background: isHovered ? buttonHoverBackgroundColor : "transparent",
+                                        color: isActive ? activeTextColor : textColor,
+                                        padding: "12px 16px",
+                                        borderRadius: 8,
+                                        cursor: "pointer",
+                                        whiteSpace: "nowrap",
+                                        width: "100%",
+                                        outline: "none",
+                                    }}
+                                    aria-current={isActive ? "page" : undefined}
+                                >
+                                    {item.label}
+                                </button>
+                            )
+                        })}
+
+                        {/* Botón de logout al final del nav */}
+                        {onLogout && (
+                            <button
+                                type="button"
+                                onClick={onLogout}
+                                style={{
+                                    ...navFont,
+                                    marginTop: "auto",
+                                    textAlign: "left",
+                                    appearance: "none",
+                                    border: "none",
+                                    background: "transparent",
+                                    color: "#DC2626",
+                                    padding: "12px 16px",
+                                    borderRadius: 8,
+                                    cursor: "pointer",
+                                    width: "100%",
+                                    outline: "none",
+                                }}
+                            >
+                                Cerrar sesión
+                            </button>
+                        )}
+                    </nav>
+                )}
+
+                <main
+                    style={{
+                        flex: "1 1 auto",
+                        width: "100%",
+                        minHeight: "100vh",
+                        padding: contentPadding,
+                        boxSizing: "border-box",
+                        overflow: "auto",
+                        display: "flex",
+                        alignItems: "stretch",
+                    }}
+                >
+                    <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column" }}>
+                        {renderContent()}
+                    </div>
+                </main>
             </div>
+
             {globalLoading && (
-            <div style={{ position: 'fixed', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(0,0,0,0.25)', zIndex: 9999 }}>
-                <div style={{ width: 128, height: 128, background: '#FFFFFF', borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 12 }}>
-                    <LoadingIcon visible showLabel={true} label="Cargando..." size={56} />
+                <div style={{ position: "fixed", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(0,0,0,0.25)", zIndex: 9999 }}>
+                    <div style={{ width: 128, height: 128, background: "#FFFFFF", borderRadius: 12, display: "flex", alignItems: "center", justifyContent: "center", padding: 12 }}>
+                        <LoadingIcon visible showLabel={true} label="Cargando..." size={56} />
+                    </div>
                 </div>
-            </div>
             )}
         </>
     )
 }
-
-// End of AppShell
-
