@@ -144,9 +144,9 @@
       "solicitanteId": "usr-sol-2",
       "tecnicoId": "usr-tec-1",
       "prioridad": "alta",
-      "estado": "resuelta",
+      "estado": "asignada",
       "fechaCreacion": "2026-04-01T15:06:37.057Z",
-      "fechaResolucion": "2026-06-13T03:43:07.293Z"
+      "fechaResolucion": null
     },
     {
       "id": "ord-3",
@@ -831,18 +831,6 @@
       "estado": "abierta",
       "fechaCreacion": "2026-06-13T03:22:24.179Z",
       "fechaResolucion": null
-    },
-    {
-      "id": "ord-1781322187219-10",
-      "activoId": "act-1",
-      "titulo": "Falla en test",
-      "descripcion": "Test automatizado",
-      "solicitanteId": "usr-sol-1",
-      "tecnicoId": null,
-      "prioridad": "media",
-      "estado": "abierta",
-      "fechaCreacion": "2026-06-13T03:43:07.219Z",
-      "fechaResolucion": null
     }
   ],
   "historial_ordenes": [
@@ -1462,33 +1450,6 @@
       "fechaHora": "2026-06-13T03:22:24.180Z",
       "valorAnterior": null,
       "valorNuevo": "{\"estado\":\"abierta\"}"
-    },
-    {
-      "id": "hist-1781322187220-225",
-      "ordenId": "ord-1781322187219-10",
-      "usuarioId": "usr-sol-1",
-      "accion": "creacion",
-      "fechaHora": "2026-06-13T03:43:07.220Z",
-      "valorAnterior": null,
-      "valorNuevo": "{\"estado\":\"abierta\"}"
-    },
-    {
-      "id": "hist-1781322187286-192",
-      "ordenId": "ord-2",
-      "usuarioId": "usr-tec-1",
-      "accion": "cambio_estado",
-      "fechaHora": "2026-06-13T03:43:07.286Z",
-      "valorAnterior": "{\"estado\":\"asignada\"}",
-      "valorNuevo": "{\"estado\":\"en_proceso\"}"
-    },
-    {
-      "id": "hist-1781322187293-887",
-      "ordenId": "ord-2",
-      "usuarioId": "usr-tec-1",
-      "accion": "resolucion",
-      "fechaHora": "2026-06-13T03:43:07.293Z",
-      "valorAnterior": "{\"estado\":\"en_proceso\"}",
-      "valorNuevo": "{\"estado\":\"resuelta\"}"
     }
   ]
 }

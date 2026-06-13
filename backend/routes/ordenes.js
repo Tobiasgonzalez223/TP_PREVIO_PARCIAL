@@ -33,6 +33,9 @@ router.patch('/:id/cancelar', verifyRole(['solicitante', 'admin', 'mantenimiento
 // PATCH /api/ordenes/:id/asignar - Acción específica: Asignar técnico (solo para admin/mantenimiento) [cite: 107, 90]
 router.patch('/:id/asignar', verifyRole(['admin', 'mantenimiento']), ordenesController.asignar);
 
+// PATCH /api/ordenes/:id/en_proceso - Acción específica: Pasar a en_proceso (pensado para el técnico) [cite: 107]
+router.patch('/:id/en_proceso', verifyRole(['tecnico']), ordenesController.pasarAEnProceso);
+
 // PATCH /api/ordenes/:id/resolver - Acción específica: Resolver orden (pensado para el técnico) [cite: 107, 89]
 router.patch('/:id/resolver', verifyRole(['tecnico']), ordenesController.resolver);
 
