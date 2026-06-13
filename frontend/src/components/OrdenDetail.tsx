@@ -63,9 +63,9 @@ interface OrdenDetailProps {
     cancelarLabel: string
     resolverLabel: string
 
-    onAsignar: (event: any) => void
-    onCancelar: (event: any) => void
-    onResolver: (event: any) => void
+    onAsignar?: (event: any) => void
+    onCancelar?: (event: any) => void
+    onResolver?: (event: any) => void
     backendError?: any
 
     style?: CSSProperties
@@ -554,86 +554,89 @@ export default function OrdenDetail(props: OrdenDetailProps) {
                                 justifyContent: "flex-end",
                             }}
                         >
-                            <button
-                                type="button"
-                                style={{
-                                    ...buttonBase,
-                                    borderColor:
-                                        pressed === "asignar"
-                                            ? accentColor
-                                            : borderColor,
-                                    background:
-                                        pressed === "asignar"
-                                            ? "rgba(0,0,0,0.03)"
-                                            : surfaceColor,
-                                    transform:
-                                        pressed === "asignar"
-                                            ? "scale(0.98)"
-                                            : "scale(1)",
-                                }}
-                                onClick={handleAssign}
-                                aria-label="Asignar técnico"
-                            >
-                                <span
-                                    aria-hidden="true"
+                            {onAsignar && (
+                                <button
+                                    type="button"
                                     style={{
-                                        width: 8,
-                                        height: 8,
-                                        borderRadius: 999,
-                                        background: accentColor,
+                                        ...buttonBase,
+                                        borderColor:
+                                            pressed === "asignar"
+                                                ? accentColor
+                                                : borderColor,
+                                        background:
+                                            pressed === "asignar"
+                                                ? "rgba(0,0,0,0.03)"
+                                                : surfaceColor,
+                                        transform:
+                                            pressed === "asignar"
+                                                ? "scale(0.98)"
+                                                : "scale(1)",
                                     }}
-                                />
-                                {asignarLabel}
-                            </button>
+                                    onClick={handleAssign}
+                                    aria-label="Asignar técnico"
+                                >
+                                    <span
+                                        aria-hidden="true"
+                                        style={{
+                                            width: 8,
+                                            height: 8,
+                                            borderRadius: 999,
+                                            background: accentColor,
+                                        }}
+                                    />
+                                    {asignarLabel}
+                                </button>
+                            )}
 
-                            <button
-                                type="button"
-                                style={{
-                                    ...buttonBase,
-                                    borderColor:
-                                        pressed === "cancelar"
-                                            ? dangerColor
-                                            : borderColor,
-                                    color: dangerColor,
-                                    background:
-                                        pressed === "cancelar"
-                                            ? "rgba(0,0,0,0.03)"
-                                            : surfaceColor,
-                                    transform:
-                                        pressed === "cancelar"
-                                            ? "scale(0.98)"
-                                            : "scale(1)",
-                                }}
-                                onClick={handleCancel}
-                                aria-label="Cancelar orden"
-                            >
-                                {cancelarLabel}
-                            </button>
+                            {onCancelar && (
+                                <button
+                                    type="button"
+                                    style={{
+                                        ...buttonBase,
+                                        borderColor:
+                                            pressed === "cancelar"
+                                                ? dangerColor
+                                                : borderColor,
+                                        color: dangerColor,
+                                        background:
+                                            pressed === "cancelar"
+                                                ? "rgba(0,0,0,0.03)"
+                                                : surfaceColor,
+                                        transform:
+                                            pressed === "cancelar"
+                                                ? "scale(0.98)"
+                                                : "scale(1)",
+                                    }}
+                                    onClick={handleCancel}
+                                    aria-label="Cancelar orden"
+                                >
+                                    {cancelarLabel}
+                                </button>
+                            )}
 
-                            <button
-                                type="button"
-                                style={{
-                                    ...buttonBase,
-                                    borderColor:
-                                        pressed === "resolver"
-                                            ? accentColor
-                                            : borderColor,
-                                    background:
-                                        pressed === "resolver"
-                                            ? accentColor
-                                            : accentColor,
-                                    color: "#FFFFFF",
-                                    transform:
-                                        pressed === "resolver"
-                                            ? "scale(0.98)"
-                                            : "scale(1)",
-                                    opacity: pressed === "resolver" ? 0.92 : 1,
-                                }}
-                                onClick={handleResolve}
-                                aria-label="Resolver orden"
-                            >
-                                {resolverLabel}
-                            </button>
+                            {onResolver && (
+                                <button
+                                    type="button"
+                                    style={{
+                                        ...buttonBase,
+                                        borderColor:
+                                            pressed === "resolver"
+                                                ? accentColor
+                                                : borderColor,
+                                        background: accentColor,
+                                        color: "#FFFFFF",
+                                        transform:
+                                            pressed === "resolver"
+                                                ? "scale(0.98)"
+                                                : "scale(1)",
+                                        opacity: pressed === "resolver" ? 0.92 : 1,
+                                    }}
+                                    onClick={handleResolve}
+                                    aria-label="Resolver orden"
+                                >
+                                    {resolverLabel}
+                                </button>
+                            )}
                         </div>
                     </div>
                 </header>

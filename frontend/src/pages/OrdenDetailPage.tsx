@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext'
 import OrdenDetail from '../components/OrdenDetail'
 import ordenesService from '../services/ordenesService'
 import activosService from '../services/activosService'
@@ -8,6 +9,7 @@ import usuariosService from '../services/usuariosService'
 export default function OrdenDetailPage() {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
+  const { user } = useAuth()
 
   const [order, setOrder] = React.useState<any>(null)
   const [historial, setHistorial] = React.useState<any[]>([])
@@ -36,8 +38,8 @@ export default function OrdenDetailPage() {
         solicitante: solicitante?.nombre || rawOrder.solicitanteId || '',
         tecnico: tecnico?.nombre || '',
         fecha: rawOrder.fechaCreacion || '',
-        fechaActualizacion: rawOrder.fechaCreacion || '',
-        fechaVencimiento: '',
+        fechaActualizacion: rawOrder.fechaActualizacion || rawOrder.fechaCreacion || '',
+        fechaVencimiento: rawOrder.fechaVencimiento || '',
       })
 
       setHistorial(histData.map((h: any) => ({
@@ -72,6 +74,7 @@ export default function OrdenDetailPage() {
   }
 
   const handleCancel = async () => {
+    if (!window.confirm('¿Cancelar esta orden? La acción no se puede deshacer.')) return
     try {
       await ordenesService.cancelar(id!)
       await load()
@@ -81,6 +84,7 @@ export default function OrdenDetailPage() {
   }
 
   const handleResolve = async () => {
+    if (!window.confirm('¿Marcar esta orden como resuelta?')) return
     try {
       await ordenesService.resolver(id!)
       await load()
@@ -110,6 +114,10 @@ export default function OrdenDetailPage() {
   )
 
   const tecnicos = usuarios.filter((u: any) => u.rol === 'tecnico').map((u: any) => u.nombre)
+  const estado = order.estado
+  const rol = user?.rol
+  const esAdmin = rol === 'admin' || rol === 'mantenimiento'
+  const esTecnicoOAdmin = rol === 'tecnico' || esAdmin
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
@@ -123,7 +131,7 @@ export default function OrdenDetailPage() {
         <h1 style={{ margin: 0, fontSize: 22, fontWeight: 700 }}>Detalle de Orden</h1>
       </div>
 
-      {order.estado === 'asignada' && (
+      {estado === 'asignada' && esTecnicoOAdmin && (
         <button
           onClick={handleEnProceso}
           style={{ alignSelf: 'flex-start', background: '#F59E0B', color: '#FFFFFF', border: 'none', borderRadius: 8, padding: '8px 16px', cursor: 'pointer', fontSize: 14, fontWeight: 600 }}
@@ -160,9 +168,9 @@ export default function OrdenDetailPage() {
         asignarLabel="Asignar técnico"
         cancelarLabel="Cancelar"
         resolverLabel="Resolver"
-        onAsignar={handleAssign}
-        onCancelar={handleCancel}
-        onResolver={handleResolve}
+        onAsignar={esAdmin && estado === 'abierta' ? handleAssign : undefined}
+        onCancelar={!['resuelta', 'cancelada'].includes(estado) ? handleCancel : undefined}
+        onResolver={esTecnicoOAdmin && estado === 'en_proceso' ? handleResolve : undefined}
         backendError={error}
         style={{ width: '100%' }}
       />

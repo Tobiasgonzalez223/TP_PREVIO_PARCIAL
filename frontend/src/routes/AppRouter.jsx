@@ -36,6 +36,7 @@ export default function AppRouter() {
           <Route element={<AdminRoute />}>
             <Route path="/resumen" element={<ResumenPage />} />
           </Route>
+          <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Route>
 

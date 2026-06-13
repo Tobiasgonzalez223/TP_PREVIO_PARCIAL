@@ -302,7 +302,10 @@ const generarResumen = async () => {
       }
     }
     const entries = Object.entries(fallasPorActivo).sort((x, y) => y[1] - x[1]);
-    return entries.slice(0, 5).map(([activoId, cantidad]) => ({ activoId, cantidad }));
+    return entries.slice(0, 5).map(([activoId, fallas]) => {
+      const activo = db.activos.find(a => a.id === activoId);
+      return { activo: activo?.nombre || activoId, fallas };
+    });
   })();
 
   return { ordenesPorEstado, urgentes, sinTecnico, activosConMasFallas };

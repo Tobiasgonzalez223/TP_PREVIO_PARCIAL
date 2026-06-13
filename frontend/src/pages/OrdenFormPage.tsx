@@ -21,11 +21,13 @@ export default function OrdenFormPage() {
     try {
       setError(null)
       const activo = activos.find((a: any) => a.nombre === formData.activo || a.id === formData.activo)
+      const tecnico = usuarios.find((u: any) => u.nombre === formData.tecnico)
       const payload: Record<string, unknown> = {
         activoId: activo?.id || formData.activo,
         titulo: formData.titulo,
         descripcion: formData.descripcion,
         prioridad: (formData.prioridad || '').toLowerCase(),
+        ...(tecnico ? { tecnicoId: tecnico.id } : {}),
       }
       const nueva = await ordenesService.crear(payload)
       navigate(`/ordenes/${nueva.id}`)

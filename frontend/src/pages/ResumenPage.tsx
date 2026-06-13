@@ -2,10 +2,18 @@ import * as React from 'react'
 import ResumenPanel from '../components/ResumenPanel'
 import ordenesService from '../services/ordenesService'
 
+const ESTADO_COLORS: Record<string, string> = {
+  abierta: '#3B82F6',
+  asignada: '#F59E0B',
+  en_proceso: '#8B5CF6',
+  resuelta: '#10B981',
+  cancelada: '#6B7280',
+}
+
 const mapResumen = (raw: any) => {
   if (!raw) return { estados: [], urgentes: 0, sinTecnico: 0, activos: [] }
   const estados = Object.entries(raw.ordenesPorEstado || {}).map(
-    ([estado, cantidad]) => ({ estado, cantidad })
+    ([estado, cantidad]) => ({ estado, cantidad, color: ESTADO_COLORS[estado] ?? '#9CA3AF' })
   )
   return {
     estados,

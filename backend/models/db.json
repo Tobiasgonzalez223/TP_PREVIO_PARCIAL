@@ -47,6 +47,14 @@
       "passwordHash": "$2b$10$pyht/UbwTsKqEhMD1jo9.ehfClZa6eiL21JXb.WdkREWvI/XEM8TO",
       "rol": "solicitante",
       "activo": true
+    },
+    {
+      "id": "usr-1781392138165",
+      "nombre": "agu bri",
+      "email": "agu@dds.com",
+      "passwordHash": "$2b$10$hrN4Xu18su/Ot3prjGo7c.oJbKgeTG6FvE.RmWD.Hyw2zGga6DVzi",
+      "rol": "solicitante",
+      "activo": true
     }
   ],
   "activos": [
@@ -101,7 +109,7 @@
       "nombre": "Mesa de reuniones",
       "tipo": "mobiliario",
       "ubicacion": "Sala Profesores",
-      "estado": "con_falla",
+      "estado": "operativo",
       "criticidad": "baja"
     },
     {
@@ -843,6 +851,18 @@
       "estado": "abierta",
       "fechaCreacion": "2026-06-13T22:44:28.371Z",
       "fechaResolucion": null
+    },
+    {
+      "id": "ord-1781393304233-223",
+      "activoId": "act-6",
+      "titulo": "agu",
+      "descripcion": "se me rompio una pata",
+      "solicitanteId": "usr-admin",
+      "tecnicoId": "usr-tec-2",
+      "prioridad": "urgente",
+      "estado": "resuelta",
+      "fechaCreacion": "2026-06-13T23:28:24.233Z",
+      "fechaResolucion": "2026-06-13T23:29:27.074Z"
     }
   ],
   "historial_ordenes": [
@@ -1487,6 +1507,42 @@
       "usuarioId": "usr-tec-1",
       "accion": "resolucion",
       "fechaHora": "2026-06-13T22:44:28.413Z",
+      "valorAnterior": "{\"estado\":\"en_proceso\"}",
+      "valorNuevo": "{\"estado\":\"resuelta\"}"
+    },
+    {
+      "id": "hist-1781393304233-611",
+      "ordenId": "ord-1781393304233-223",
+      "usuarioId": "usr-admin",
+      "accion": "creacion",
+      "fechaHora": "2026-06-13T23:28:24.233Z",
+      "valorAnterior": null,
+      "valorNuevo": "{\"estado\":\"abierta\"}"
+    },
+    {
+      "id": "hist-1781393319979-71",
+      "ordenId": "ord-1781393304233-223",
+      "usuarioId": "usr-admin",
+      "accion": "asignacion",
+      "fechaHora": "2026-06-13T23:28:39.979Z",
+      "valorAnterior": "{\"estado\":\"abierta\",\"tecnicoId\":null}",
+      "valorNuevo": "{\"estado\":\"asignada\",\"tecnicoId\":\"usr-tec-2\"}"
+    },
+    {
+      "id": "hist-1781393359511-188",
+      "ordenId": "ord-1781393304233-223",
+      "usuarioId": "usr-tec-1",
+      "accion": "cambio_estado",
+      "fechaHora": "2026-06-13T23:29:19.511Z",
+      "valorAnterior": "{\"estado\":\"asignada\"}",
+      "valorNuevo": "{\"estado\":\"en_proceso\"}"
+    },
+    {
+      "id": "hist-1781393367074-195",
+      "ordenId": "ord-1781393304233-223",
+      "usuarioId": "usr-tec-1",
+      "accion": "resolucion",
+      "fechaHora": "2026-06-13T23:29:27.074Z",
       "valorAnterior": "{\"estado\":\"en_proceso\"}",
       "valorNuevo": "{\"estado\":\"resuelta\"}"
     }
